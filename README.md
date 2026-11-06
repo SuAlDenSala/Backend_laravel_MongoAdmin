@@ -12,6 +12,11 @@ A modern, high-performance E-Commerce Backend and Administration Dashboard built
   - [2. RESTful API (`/api/v1`)](#2-restful-api-apiv1)
   - [3. Interactive API Documentation](#3-interactive-api-documentation)
   - [4. Data Models & MongoDB Collections](#4-data-models--mongodb-collections)
+- [User Interface (UI) Showcase & Layout](#user-interface-ui-showcase--layout)
+  - [1. Dual-Theme Experience (Dark / Light)](#1-dual-theme-experience-dark--light)
+  - [2. Layout Architecture & Wireframe](#2-layout-architecture--wireframe)
+  - [3. Login Interface Wireframe](#3-login-interface-wireframe)
+  - [4. Page-by-Page Feature Tour](#4-page-by-page-feature-tour)
 - [Prerequisites](#prerequisites)
 - [Step-by-Step Setup & Run Manual](#step-by-step-setup--run-manual)
 - [Default Credentials & Test Accounts](#default-credentials--test-accounts)
@@ -26,7 +31,7 @@ A modern, high-performance E-Commerce Backend and Administration Dashboard built
 - **Database Engine:** MongoDB 7.0 via `mongodb/laravel-mongodb` ODM
 - **API Documentation:** Dedoc Scramble (OpenAPI / Swagger interactive docs)
 - **Containerization:** Docker Compose for isolated MongoDB database management
-- **Admin UI:** Responsive Blade views styled with Tailwind CSS
+- **Admin UI:** Responsive Blade views styled with Tailwind CSS & Inter typography
 
 ```
 Backend_laravel/
@@ -96,6 +101,94 @@ Models extend `MongoDB\Laravel\Eloquent\Model`, leveraging document flexibility:
 - **`Order`**: Embedded `items` array storing historical prices and product snapshots at checkout.
 - **`Coupon`**: Configurable discount rules (`percentage` or `fixed`).
 - **`Review`**: Customer ratings (1-5) and feedback tied to products.
+
+---
+
+## User Interface (UI) Showcase & Layout
+
+MongoAdmin provides a clean, modern administration portal built with **Blade templates**, **Inter typography**, **FontAwesome vector iconography**, and **Tailwind CSS**.
+
+### 1. Dual-Theme Experience (Dark / Light)
+- **Dark Mode (Default):** Deep onyx/carbon palette (`#000000`, `#0c0c0e`, `#18181b`) with white typography and slate borders (`#27272a`).
+- **Light Mode:** Modern paper theme (`#ffffff`, `#f8fafc`) with slate accents and soft shadows.
+- **Instant Toggle:** Includes a quick theme switcher on both the login screen and the admin header. Theme preference is automatically remembered via `localStorage`.
+
+---
+
+### 2. Layout Architecture & Wireframe
+
+The dashboard features a persistent 260px fixed sidebar and a responsive content viewport with KPI stat counters and interactive data tables:
+
+```text
++-------------------------------------------------------------------------------------------------------+
+|                                  MONGOADMIN MANAGEMENT PORTAL                                         |
++---------------------+---------------------------------------------------------------------------------+
+|  [⚡] MongoAdmin    |  Dashboard Overview  /  Breadcrumbs        [🌓 Theme]  [System Admin (Online)]  |
++---------------------+---------------------------------------------------------------------------------+
+|                     |                                                                                 |
+|  NAVIGATION         |  +------------------+ +------------------+ +------------------+ +-------------+ |
+|  -----------------  |  | Total Products   | | Active Categories| | Total Orders     | | Users       | |
+|  [📊] Dashboard     |  |       25         | |        4         | |       12         | |     4       | |
+|  [📦] Products      |  +------------------+ +------------------+ +------------------+ +-------------+ |
+|  [🏷️] Categories    |                                                                                 |
+|  [🛒] Orders        |  +----------------------------------------------------------------------------+ |
+|  [👥] Users         |  | Recent Mongo Orders                                [View All Orders ->]    | |
+|  [🎟️] Coupons       |  |----------------------------------------------------------------------------| |
+|  [⭐] Reviews       |  | Order No.    | Customer       | Amount   | Payment      | Status           | |
+|                     |  | ORD-2026-001 | John Doe       | $224.55  | Credit Card  | [Paid]           | |
+|  DEVELOPER DOCS     |  | ORD-2026-002 | customer@...   | $1299.99 | PayPal       | [Pending]        | |
+|  -----------------  |  +----------------------------------------------------------------------------+ |
+|  [📑] API Docs      |                                                                                 |
+|                     |                                                                                 |
+|  USER ACCOUNT       |                                                                                 |
+|  -----------------  |                                                                                 |
+|  [🚪] Logout        |                                                                                 |
++---------------------+---------------------------------------------------------------------------------+
+```
+
+---
+
+### 3. Login Interface Wireframe
+
+The login portal at `/admin/login` includes a centered modal card with instant demo credential hints:
+
+```text
+                           +---------------------------------------+  [🌓 Mode]
+                           |                                       |
+                           |               [ 🍃 ]                  |
+                           |            MongoAdmin                 |
+                           |   Sign in to access control panel     |
+                           |                                       |
+                           |   Email Address                       |
+                           |   [ admin@example.com               ] |
+                           |                                       |
+                           |   Password                            |
+                           |   [ *****************               ] |
+                           |                                       |
+                           |   [        Sign In to Portal        ] |
+                           |                                       |
+                           |   ---------------------------------   |
+                           |   Demo Admin Credentials:             |
+                           |   Email: admin@example.com            |
+                           |   Password: password123               |
+                           +---------------------------------------+
+```
+
+---
+
+### 4. Page-by-Page Feature Tour
+
+| Screen / Page | URL Route | Key UI Features & Interactive Controls |
+| :--- | :--- | :--- |
+| **Admin Login** | `/admin/login` | Centered card, animated brand icon, theme switcher, demo credentials box, error alerts |
+| **Dashboard** | `/admin/dashboard` | 4 metric KPI cards with color badges, recent orders feed, direct links to full listings |
+| **Products Inventory** | `/admin/products` | Stock inventory health badges (`in stock`, `low stock`, `out of stock`), price formatting, dynamic attribute builder modal |
+| **Categories Grid** | `/admin/categories` | Icon indicators, slug labels, status badges (`active`/`inactive`), category creation modal |
+| **Orders Processing** | `/admin/orders` | Customer details, nested order line items, instant status updater dropdown (`pending`, `paid`, `shipped`, `delivered`, `cancelled`) |
+| **User Directory** | `/admin/users` | Role pills (`admin` vs `customer`), API token inspection, customer account creation/deletion |
+| **Coupons & Deals** | `/admin/coupons` | Percentage vs Fixed badges, usage progress counters, minimum spend validator, expiration countdowns |
+| **Reviews Moderation**| `/admin/reviews` | Interactive 5-star rating rendering, customer feedback comment cards, delete moderation action |
+| **Interactive API Docs**| `/docs` | OpenAPI / Scalar UI with schema inspector, curl generator, and live endpoint testing |
 
 ---
 
